@@ -6,23 +6,35 @@ def header():
 
 def lin():
     print('--' * 26)
+
+
 dados = {}
 ficha = []
 
 header()
 while True:
     dados.clear()
-    dados['nome'] = input('Nome: ').capitalize()
+    try:
+        dados['nome'] = input('Nome: ').capitalize()
+    except:
+        while dados['nome'].isnumeric():
+            dados['nome'] = input('Digite somente letras: ').capitalize()
+    else:
+        while dados['nome'] == '':
+            dados['nome'] = input('Preencha todos os campos: ').capitalize()
+            if dados['nome'].isnumeric():
+                dados['nome'] = input('Digite somente letras: ').capitalize()
+
     try:
         dados['idade'] = int(input('Idade: '))
     except Exception as error:
         while ValueError:
-            dados['idade'] = input('\033[31mERRO!(Digite um valor válido).\033[0m\nIdade:')
+            dados['idade'] = input(
+                '\033[31mERRO!(Digite um valor válido).\033[0m\nIdade:')
 
     else:
         if dados['idade'] <= 0:
             dados['idade'] = input('\033[31mDigite uma idade válida: ')
-
 
     try:
         dados['sexo'] = input('Sexo[F/M]: \033[0m').strip().upper()[0]
